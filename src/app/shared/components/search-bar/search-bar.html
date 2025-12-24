@@ -1,0 +1,29 @@
+<div [formGroup]="form">
+  <app-input-field
+    label="Buscar"
+    placeholder="Buscar..."
+    [control]="$any(form.get('value'))">
+  </app-input-field>
+
+  <app-select-field
+    label="Campo"
+    [options]="options"
+    valueKey="value"
+    labelKey="label"
+    [control]="$any(form.get('field'))">
+  </app-select-field>
+
+  <app-button
+    label="Buscar"
+    color="primary"
+    (clickEvent)="onSearch()">
+  </app-button>
+
+  <app-button
+    *ngIf="showRegisterButton"
+    label="Registrar"
+    icon="add"
+    color="accent"
+    (clickEvent)="onRegister()">
+  </app-button>
+</div>
