@@ -1,0 +1,51 @@
+<div class="sidebar" [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }">
+    <div class="sidebar-header">
+        <button class="sidebar-toggle-btn-inside" (click)="toggleSidebar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+
+    <div class="user-info" >
+        @if(!isSidebarCollapsed){
+            <span class="user-name">{{ userName }}</span>
+        }
+    </div>
+
+    <div class="sidebar-menu">
+        <ul>
+            <li class="sidebar-menu-item">
+                @for(lista of menuItems; track $index) {
+                    <a mat-list-item 
+                       [routerLink]="lista.url" 
+                       class="sidebar-item"
+                       [matTooltip]="lista.label"
+                       matTooltipPosition="right"
+                       [matTooltipDisabled]="!isSidebarCollapsed">
+                        <img [src]="lista.icon" [alt]="lista.label">
+                        @if(!isSidebarCollapsed){
+                            <span class="sidebar-item-text">{{ lista.label }}</span>
+                        }
+                    </a>
+                }
+            </li>
+        </ul>
+    </div>
+
+    @if(!isSidebarCollapsed){
+        <div class="footer-container" >
+            <button mat-button class="logout-btn" (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon> Logout
+            </button>
+        </div>
+    }@else{
+        <div class="footer-container-collapsed">
+            <button mat-icon-button 
+                    class="logout-btn"
+                    (click)="logout()"
+                    matTooltip="Cerrar sesión"
+                    matTooltipPosition="right">
+                <mat-icon>exit_to_app</mat-icon>
+            </button>
+        </div>
+    }
+</div>
