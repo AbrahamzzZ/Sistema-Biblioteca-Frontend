@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-overlay"></div>
+  <div class="login-card">
+
+    <h2 class="login-title">Sistema Bibliotecario</h2>
+    <p class="login-subtitle">Acceso al sistema</p>
+
+    <form [formGroup]="form" class="login-form">
+
+      <app-input-field
+        label="Usuario"
+        type="text"
+        [control]="$any(form.get('name'))">
+      </app-input-field>
+
+      <app-input-field 
+        label="Correo institucional"
+        type="email"
+        [control]="$any(form.get('email'))">
+      </app-input-field>
+
+      <app-button
+        label="Ingresar"
+        color="primary"
+        [disabled]="form.invalid"
+        (clickEvent)="login()">
+      </app-button>
+
+    </form>
+  </div>
+</div>
