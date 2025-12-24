@@ -57,6 +57,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTooltipModule
   ],
   exports: [
+    CommonModule,
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
