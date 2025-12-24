@@ -31,6 +31,13 @@ export const routes: Routes = [
         component: Main,
         children: [
             {
+                path: 'dashboard',
+                loadChildren: () => 
+                    import('./module/pages/home/home-module').then(
+                        (m) => m.HomeModule
+                    )
+            },
+            {
                 path: 'loan',
                 loadChildren: () => 
                     import('./module/pages/book-loan/book-loan-module').then(
