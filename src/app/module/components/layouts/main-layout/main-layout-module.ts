@@ -5,6 +5,7 @@ import { MainLayoutRoutingModule } from './main-layout-routing-module';
 import { Main } from './main/main';
 import { MaterialModule } from '../../../../shared/ui/material-module';
 import { RouterOutlet } from '@angular/router';
+import { Sidebar } from '../../../../shared/components/sidebar/sidebar';
 
 
 
@@ -16,7 +17,8 @@ import { RouterOutlet } from '@angular/router';
     CommonModule,
     MainLayoutRoutingModule,
     MaterialModule,
-    RouterOutlet
+    RouterOutlet,
+    Sidebar
 ]
 })
 export class MainLayoutModule { }
