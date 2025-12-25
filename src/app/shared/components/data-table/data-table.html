@@ -1,13 +1,13 @@
 <div>
     <table mat-table [dataSource]="data">
         <!-- Columnas dinámicas -->
-        <ng-container *ngFor="let col of columns" [matColumnDef]="col.key">
+        <ng-container *ngFor="let col of columns" [matColumnDef]="col.key ?? ''">
             <th mat-header-cell *matHeaderCellDef>
             {{ col.label }}
             </th>
 
             <td mat-cell *matCellDef="let element">
-            {{ element[col.key] }}
+            {{ element[col.key ?? ''] }}
             </td>
         </ng-container>
 

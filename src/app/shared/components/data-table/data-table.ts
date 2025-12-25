@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MaterialModule } from '../../ui/material-module';
+import { Table } from '../../../core/interfaces/table';
 
 @Component({
   selector: 'app-data-table',
@@ -8,10 +9,7 @@ import { MaterialModule } from '../../ui/material-module';
   styleUrl: './data-table.css',
 })
 export class DataTable {
-  @Input() columns: {
-    key: string;
-    label: string;
-  }[] = []
+  @Input() columns: Table[] = [];
   @Input() data: any[] = [];
   @Input() showActions: boolean = true;
 
@@ -19,8 +17,9 @@ export class DataTable {
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
 
-  displayedColumns(): string[]{
-    const cols = this.columns.map(c => c.key);
-    return this.showActions ? [...cols, 'actions'] : cols;
+  displayedColumns(): string[] {
+    return this.columns.map(col =>
+      col.type === 'actions' ? 'actions' : col.key!
+    );
   }
 }
