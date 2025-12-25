@@ -1,1 +1,22 @@
-<p>client works!</p>
+<h1>Gestión de Usuarios</h1>
+
+<app-search-bar
+  [options]="searchOptions"
+  placeholder="Buscar usuario..."
+  (search)="onSearch($event)">
+</app-search-bar>
+
+<app-data-table
+  [columns]="columns"
+  [data]="filteredUsers"
+  (delete)="onAskDelete($event)">
+</app-data-table>
+
+<app-dialog
+  *ngIf="showDeleteDialog"
+  title="Eliminar usuario"
+  message="¿Deseas eliminar el usuario?"
+  [itemName]="selectedUser?.name"
+  (confirm)="confirmDelete()"
+  (cancel)="cancelDelete()">
+</app-dialog>

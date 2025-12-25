@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  padding: 24px;
+  background-color: #f5f7fa;
+  min-height: 100%;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+app-search-bar {
+  display: block;
+  margin-bottom: 16px;
+}
+
+app-data-table {
+  display: block;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
