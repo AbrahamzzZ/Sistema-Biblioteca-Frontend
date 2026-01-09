@@ -11,7 +11,7 @@ th {
 
 td, th {
   padding: 12px;
-  font-size: 14px;
+  text-align: center;
 }
 
 tr.mat-row:hover {
@@ -25,4 +25,8 @@ tr.mat-row:hover {
 
 button {
   font-size: 13px;
+}
+
+::ng-deep .mat-mdc-header-cell {
+  text-align: center !important;
 }
