@@ -6,7 +6,8 @@ import { Client } from './client/client';
 import { MaterialModule } from '../../../shared/ui/material-module';
 import { SearchBar } from '../../../shared/components/search-bar/search-bar';
 import { DataTable } from '../../../shared/components/data-table/data-table';
-import { Dialog } from '../../../shared/components/dialog/dialog';
+import { Dialog } from '../../components/dialog/dialog';
+import { StatCard } from '../../../shared/components/stat-card/stat-card';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { Dialog } from '../../../shared/components/dialog/dialog';
     MaterialModule,
     SearchBar,
     DataTable,
-    Dialog
+    Dialog,
+    StatCard
   ]
 })
 export class UserModule { }
