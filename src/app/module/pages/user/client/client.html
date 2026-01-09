@@ -1,5 +1,19 @@
 <h1>Gestión de Usuarios</h1>
 
+<div class="stats-container">
+  <app-stat-card
+    title="Usuarios totales"
+    [count]="users.length"
+    icon="people">
+  </app-stat-card>
+
+  <app-stat-card
+    title="Usuarios activos"
+    [count]="filteredUsers.length"
+    icon="check_circle">
+  </app-stat-card>
+</div>
+
 <app-search-bar
   [options]="searchOptions"
   placeholder="Buscar usuario..."
@@ -12,11 +26,12 @@
   (delete)="onAskDelete($event)">
 </app-data-table>
 
-<app-dialog
-  *ngIf="showDeleteDialog"
-  title="Eliminar usuario"
-  message="¿Deseas eliminar el usuario?"
-  [itemName]="selectedUser?.name"
-  (confirm)="confirmDelete()"
-  (cancel)="cancelDelete()">
-</app-dialog>
+@if(showDeleteDialog){
+  <app-dialog
+    title="Eliminar usuario"
+    message="¿Deseas eliminar el usuario?"
+    [itemName]="selectedUser?.name"
+    (confirm)="confirmDelete()"
+    (cancelDelete)="cancelDelete()">
+  </app-dialog>
+}
