@@ -1,7 +1,7 @@
 <div [formGroup]="form">
   <app-input-field
     label="Buscar"
-    placeholder="Buscar..."
+    placeholder=""
     [control]="$any(form.get('value'))">
   </app-input-field>
 
@@ -19,11 +19,13 @@
     (clickEvent)="onSearch()">
   </app-button>
 
-  <app-button
-    *ngIf="showRegisterButton"
-    label="Registrar"
-    icon="add"
-    color="accent"
-    (clickEvent)="onRegister()">
-  </app-button>
+  @if(showRegisterButton){
+    <app-button
+      label="Registrar"
+      icon="add"
+      color="accent"
+      (clickEvent)="onRegister()">
+    </app-button>
+  }
+
 </div>
