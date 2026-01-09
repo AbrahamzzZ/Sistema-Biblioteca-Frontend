@@ -1,0 +1,26 @@
+<div class="overlay">
+  <div class="dialog-container">
+    <h2>{{ title }}</h2>
+
+    <p>
+      {{ message }}
+      @if (itemName) {
+        <strong>{{ itemName }}</strong>
+      }
+    </p>
+
+    <div class="dialog-actions">
+      <app-button
+        label="Cancelar"
+        color="primary"
+        (clickEvent)="cancelDelete.emit()">
+      </app-button>
+
+      <app-button
+        label="Eliminar"
+        color="warn"
+        (clickEvent)="confirm.emit()">
+      </app-button>
+    </div>
+  </div>
+</div>
