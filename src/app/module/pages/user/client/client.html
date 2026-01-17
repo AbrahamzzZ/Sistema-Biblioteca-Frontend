@@ -14,15 +14,25 @@
   </app-stat-card>
 </div>
 
-<app-search-bar
-  [options]="searchOptions"
-  placeholder="Buscar usuario..."
-  (search)="onSearch($event)">
-</app-search-bar>
+<div class="actions">
+  <app-search-bar
+    [options]="searchOptions"
+    placeholder="Buscar usuario..."
+    (search)="onSearch($event)">
+  </app-search-bar>
+
+  <app-button
+    label="Registrar usuario"
+    icon="add"
+    color="primary"
+    (clickEvent)="onCreateUser()">
+  </app-button>
+</div>
 
 <app-data-table
   [columns]="columns"
   [data]="filteredUsers"
+  (edit)="onEditUser($event)"
   (delete)="onAskDelete($event)">
 </app-data-table>
 
@@ -34,4 +44,17 @@
     (confirm)="confirmDelete()"
     (cancelDelete)="cancelDelete()">
   </app-dialog>
+}
+
+@if(showUserModal){
+  <app-modal
+    (close)="closeUserModal()">
+
+    <app-form
+      [user]="editingUser"
+      (cancel)="closeUserModal()"
+      (save)="onSaveUser($event)">
+    </app-form>
+
+  </app-modal>
 }

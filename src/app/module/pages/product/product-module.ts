@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { ProductRoutingModule } from './product-routing-module';
 import { Book } from './book/book';
+import { StatCard } from '../../../shared/components/stat-card/stat-card';
+import { SearchBar } from '../../../shared/components/search-bar/search-bar';
+import { Dialog } from '../../components/dialog/dialog';
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import { Book } from './book/book';
   ],
   imports: [
     CommonModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    SearchBar,
+    Dialog,
+    StatCard
   ]
 })
 export class ProductModule { }
