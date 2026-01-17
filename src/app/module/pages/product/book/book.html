@@ -20,13 +20,21 @@
   (search)="onSearch($event)">
 </app-search-bar>
 
+<div class="content">
+  @for(book of filteredBooks; track $index){
+    <app-book-card class="card"
+      [book]="book"
+      (delete)="onAskDelete($event)">
+    </app-book-card>
+  }
+</div>
+
 @if(showDeleteDialog){
   <app-dialog
-    title="Eliminar usuario"
-    message="¿Deseas eliminar el usuario?"
+    title="Eliminar libro"
+    message="¿Deseas eliminar el libro?"
     [itemName]="selectedBook?.name"
     (confirm)="confirmDelete()"
     (cancelDelete)="cancelDelete()">
   </app-dialog>
 }
-

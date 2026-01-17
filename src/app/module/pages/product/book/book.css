@@ -18,3 +18,14 @@ h1 {
   margin-bottom: 24px;
   flex-wrap: wrap;
 }
+
+.content{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-around;
+  border: 2px solid #f0ebe7;
+}
+
+.card{
+  margin: 15px;
+}
