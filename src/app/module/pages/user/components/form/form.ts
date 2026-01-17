@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MaterialModule } from '../../ui/material-module';
-import { Button } from '../button/button';
-import { InputField } from '../input-field/input-field';
-import { Checkbox } from '../checkbox/checkbox';
-import { Card } from '../card/card';
+import { MaterialModule } from '../../../../../shared/ui/material-module';
+import { Button } from '../../../../../shared/components/button/button';
+import { InputField } from '../../../../../shared/components/input-field/input-field';
+import { Checkbox } from '../../../../../shared/components/checkbox/checkbox';
+import { Card } from '../../../../../shared/components/card/card';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
