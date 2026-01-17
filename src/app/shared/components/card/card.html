@@ -1,0 +1,8 @@
+<mat-card class="shared-card">
+    @if(title){
+        <mat-card-title class="title">{{ title }}</mat-card-title>
+    }
+  <mat-card-content>
+    <ng-content></ng-content>
+  </mat-card-content>
+</mat-card>

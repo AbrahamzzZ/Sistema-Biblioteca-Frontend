@@ -1,0 +1,8 @@
+.shared-card{
+    display: flex;
+    align-items: center;
+}
+
+.title{
+    margin: 20px;
+}
