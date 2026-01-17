@@ -6,6 +6,7 @@ import { Book } from './book/book';
 import { StatCard } from '../../../shared/components/stat-card/stat-card';
 import { SearchBar } from '../../../shared/components/search-bar/search-bar';
 import { Dialog } from '../../components/dialog/dialog';
+import { BookCard } from './components/book-card/book-card';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { Dialog } from '../../components/dialog/dialog';
     ProductRoutingModule,
     SearchBar,
     Dialog,
-    StatCard
+    StatCard,
+    BookCard
   ]
 })
 export class ProductModule { }

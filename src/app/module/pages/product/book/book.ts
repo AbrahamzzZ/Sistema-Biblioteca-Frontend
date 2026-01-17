@@ -43,4 +43,9 @@ export class Book {
     this.filteredBooks = [...this.books];
     this.cancelDelete();
   }
+
+  onAskDelete(book: any) {
+    this.selectedBook = book;
+    this.showDeleteDialog = true;
+  }
 }
