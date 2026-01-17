@@ -1,0 +1,17 @@
+<mat-card class="book-card">
+  <mat-card-content>
+    <div class="content">
+      <img class="img" src="image/libro.png" alt="Libro">
+      <h3>{{ book.titulo }}</h3>
+    </div>
+    <p>Autor: {{ book.autor }}</p>
+    <p>Stock: {{ book.stock }}</p>
+    <p class="genero">{{ book.genero }}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="edit.emit(book)">
+      Editar
+    </button>
+  </mat-card-actions>
+</mat-card>
