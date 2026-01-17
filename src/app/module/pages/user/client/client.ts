@@ -30,6 +30,8 @@ export class Client {
 
   showDeleteDialog = false;
   selectedUser: any = null;
+  showUserModal = false;
+  editingUser: any = null;
 
   onSearch(event: { field: string; value: string }) {
 
@@ -38,6 +40,34 @@ export class Client {
   onAskDelete(user: any) {
     this.selectedUser = user;
     this.showDeleteDialog = true;
+  }
+
+  onCreateUser() {
+    this.editingUser = null;
+    this.showUserModal = true;
+  }
+
+  onEditUser(user: any) {
+    this.editingUser = user;
+    this.showUserModal = true;
+  }
+
+  closeUserModal() {
+    this.showUserModal = false;
+  }
+
+  onSaveUser(user: any) {
+    if (user.id) {
+      this.users = this.users.map(u =>
+        u.id === user.id ? user : u
+      );
+    } else {
+      user.id = Date.now();
+      this.users.push(user);
+    }
+
+    this.filteredUsers = [...this.users];
+    this.closeUserModal();
   }
 
   cancelDelete() {

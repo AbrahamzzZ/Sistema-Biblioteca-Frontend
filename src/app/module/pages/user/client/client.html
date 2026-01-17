@@ -23,6 +23,7 @@
 <app-data-table
   [columns]="columns"
   [data]="filteredUsers"
+  (edit)="onEditUser($event)"
   (delete)="onAskDelete($event)">
 </app-data-table>
 
@@ -34,4 +35,18 @@
     (confirm)="confirmDelete()"
     (cancelDelete)="cancelDelete()">
   </app-dialog>
+}
+
+@if(showUserModal){
+  <app-modal
+    [title]="editingUser ? 'Editar usuario' : 'Registrar usuario'"
+    (close)="closeUserModal()">
+
+    <app-form
+      [user]="editingUser"
+      (cancel)="closeUserModal()"
+      (save)="onSaveUser($event)">
+    </app-form>
+
+  </app-modal>
 }
