@@ -1,0 +1,42 @@
+<app-card [title]="user ? 'Editar usuario' : 'Registrar usuario'">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <app-input-field
+      label="Nombre"
+      [control]="form.controls.name">
+    </app-input-field>
+
+    <app-input-field
+      label="Correo"
+      type="email"
+      [control]="form.controls.email">
+    </app-input-field>
+
+    <app-input-field
+      label="Teléfono"
+      [control]="form.controls.phone">
+    </app-input-field>
+
+    <app-checkbox
+      label="Usuario activo"
+      [control]="form.controls.estado">
+    </app-checkbox>
+
+    <div class="actions">
+      <app-button
+        label="Cancelar"
+        color="primary"
+        type="button"
+        (clickEvent)="cancel.emit()">
+      </app-button>
+
+      <app-button
+        label="Guardar"
+        type="submit">
+      </app-button>
+    </div>
+
+  </form>
+
+</app-card>
