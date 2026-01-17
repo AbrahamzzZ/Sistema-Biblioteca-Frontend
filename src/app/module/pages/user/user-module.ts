@@ -10,7 +10,7 @@ import { Dialog } from '../../components/dialog/dialog';
 import { StatCard } from '../../../shared/components/stat-card/stat-card';
 import { Modal } from '../../components/modal/modal';
 import { Card } from '../../../shared/components/card/card';
-import { Form } from "../../../shared/components/form/form";
+import { Form } from "./components/form/form";
 import { Button } from '../../../shared/components/button/button';
 
 
