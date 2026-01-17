@@ -31,3 +31,12 @@ app-data-table {
   padding: 16px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
+
+.actions{
+  display: flex;
+  justify-content: space-between;
+}
+
+app-button {
+  margin-top: 10px;
+}

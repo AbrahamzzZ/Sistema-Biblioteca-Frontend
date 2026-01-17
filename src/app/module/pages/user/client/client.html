@@ -14,11 +14,20 @@
   </app-stat-card>
 </div>
 
-<app-search-bar
-  [options]="searchOptions"
-  placeholder="Buscar usuario..."
-  (search)="onSearch($event)">
-</app-search-bar>
+<div class="actions">
+  <app-search-bar
+    [options]="searchOptions"
+    placeholder="Buscar usuario..."
+    (search)="onSearch($event)">
+  </app-search-bar>
+
+  <app-button
+    label="Registrar usuario"
+    icon="add"
+    color="primary"
+    (clickEvent)="onCreateUser()">
+  </app-button>
+</div>
 
 <app-data-table
   [columns]="columns"
@@ -39,7 +48,6 @@
 
 @if(showUserModal){
   <app-modal
-    [title]="editingUser ? 'Editar usuario' : 'Registrar usuario'"
     (close)="closeUserModal()">
 
     <app-form
