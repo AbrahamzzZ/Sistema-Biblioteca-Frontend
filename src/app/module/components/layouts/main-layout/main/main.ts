@@ -18,6 +18,7 @@ export class Main implements OnInit{
   menuItems: Menu[] = [
     { label: 'Dashboard', icon: 'svg/dashboard.svg', url: '/home/dashboard' },
     { label: 'Usuarios', icon: 'svg/user.svg', url: '/home/client' },
+    { label: 'Libros', icon: 'svg/book.svg', url: '/home/book'},
     { label: 'Préstamos', icon: 'svg/load.svg', url: '/home/loan' }
   ];
 

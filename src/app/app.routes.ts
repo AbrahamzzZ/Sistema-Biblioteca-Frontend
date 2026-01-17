@@ -38,17 +38,24 @@ export const routes: Routes = [
                     )
             },
             {
-                path: 'loan',
-                loadChildren: () => 
-                    import('./module/pages/book-loan/book-loan-module').then(
-                        (m) => m.BookLoanModule
-                    )
-            },
-            {
                 path: 'client',
                 loadChildren: () =>
                     import('./module/pages/user/user-module').then(
                         (m) => m.UserModule
+                    )
+            },
+            {
+                path: 'book',
+                loadChildren: () =>
+                    import('./module/pages/product/product-module').then(
+                        (m) => m.ProductModule
+                    )
+            },
+            {
+                path: 'loan',
+                loadChildren: () => 
+                    import('./module/pages/book-loan/book-loan-module').then(
+                        (m) => m.BookLoanModule
                     )
             }
         ]
