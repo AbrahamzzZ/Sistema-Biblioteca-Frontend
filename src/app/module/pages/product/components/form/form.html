@@ -1,0 +1,67 @@
+<app-card [title]="book ? 'Editar libro' : 'Registrar libro'">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+ <app-input-field
+      label="Título"
+      placeholder="Ingrese el título"
+      [control]="form.controls.titulo">
+    </app-input-field>
+
+    <app-input-field
+      label="Autor"
+      placeholder="Ingrese el autor"
+      [control]="form.controls.autor">
+    </app-input-field>
+
+    <app-input-field
+      label="Editorial"
+      [control]="form.controls.editorial">
+    </app-input-field>
+
+    <app-input-field
+      label="Año de publicación"
+      type="number"
+      [control]="form.controls.anioPublicacion">
+    </app-input-field>
+
+    <app-input-field
+      label="Stock"
+      type="number"
+      [control]="form.controls.stock">
+    </app-input-field>
+
+    <app-input-field
+      label="Ubicación"
+      [control]="form.controls.ubicacion">
+    </app-input-field>
+
+    <app-select-field
+      label="Género"
+      [options]="generos"
+      [control]="form.controls.genero">
+    </app-select-field>
+
+    <app-checkbox
+      label="Libro activo"
+      [control]="form.controls.estado">
+    </app-checkbox>
+
+    <div class="actions">
+      <app-button
+        label="Cancelar"
+        type="button"
+        color="primary"
+        (clickEvent)="cancel.emit()">
+      </app-button>
+
+      <app-button
+        label="Guardar"
+        type="submit"
+        [disabled]="form.invalid">
+      </app-button>
+    </div>
+
+  </form>
+
+</app-card>
