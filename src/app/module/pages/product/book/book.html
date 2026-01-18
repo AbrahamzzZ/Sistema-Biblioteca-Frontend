@@ -14,16 +14,26 @@
   </app-stat-card>
 </div>
 
-<app-search-bar
-  [options]="searchOptions"
-  placeholder="Buscar usuario..."
-  (search)="onSearch($event)">
-</app-search-bar>
+<div class="actions">
+  <app-search-bar
+    [options]="searchOptions"
+    (search)="onSearch($event)">
+  </app-search-bar>
+
+  <app-button
+    label="Registrar libro"
+    icon="add"
+    color="primary"
+    (clickEvent)="onCreateBook()"
+    >
+  </app-button>
+</div>
 
 <div class="content">
   @for(book of filteredBooks; track $index){
     <app-book-card class="card"
       [book]="book"
+      (edit)="onEditBook($event)"
       (delete)="onAskDelete($event)">
     </app-book-card>
   }
@@ -37,4 +47,18 @@
     (confirm)="confirmDelete()"
     (cancelDelete)="cancelDelete()">
   </app-dialog>
+}
+
+@if(showBookModal){
+  <app-modal
+    [title]="editingBook ? 'Editar libro' : 'Registrar libro'"
+    (close)="closeBookModal()">
+
+    <app-form
+      [book]="editingBook"
+      (save)="onSaveBook($event)"
+      (cancel)="closeBookModal()">
+    </app-form>
+
+  </app-modal>
 }

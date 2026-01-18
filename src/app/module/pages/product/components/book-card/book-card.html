@@ -2,16 +2,32 @@
   <mat-card-content>
     <div class="content">
       <img class="img" src="image/libro.png" alt="Libro">
-      <h3>{{ book.titulo }}</h3>
+
+      <div class="header">
+        <h3>{{ book.titulo }}</h3>
+
+        <div class="actions">
+          <button
+            mat-icon-button
+            color="primary"
+            aria-label="Editar"
+            (click)="edit.emit(book)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Eliminar"
+            (click)="delete.emit(book)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
+
     <p>Autor: {{ book.autor }}</p>
     <p>Stock: {{ book.stock }}</p>
     <p class="genero">{{ book.genero }}</p>
   </mat-card-content>
-
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="edit.emit(book)">
-      Editar
-    </button>
-  </mat-card-actions>
 </mat-card>

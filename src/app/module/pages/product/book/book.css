@@ -29,3 +29,12 @@ h1 {
 .card{
   margin: 15px;
 }
+
+.actions{
+  display: flex;
+  justify-content: space-between;
+}
+
+app-button {
+  margin-top: 10px;
+}
