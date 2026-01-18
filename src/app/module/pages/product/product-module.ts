@@ -7,6 +7,9 @@ import { StatCard } from '../../../shared/components/stat-card/stat-card';
 import { SearchBar } from '../../../shared/components/search-bar/search-bar';
 import { Dialog } from '../../components/dialog/dialog';
 import { BookCard } from './components/book-card/book-card';
+import { Button } from '../../../shared/components/button/button';
+import { Modal } from '../../components/modal/modal';
+import { Form } from './components/form/form';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { BookCard } from './components/book-card/book-card';
     SearchBar,
     Dialog,
     StatCard,
-    BookCard
+    BookCard,
+    Button,
+    Modal,
+    Form
   ]
 })
 export class ProductModule { }

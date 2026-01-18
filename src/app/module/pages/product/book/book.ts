@@ -28,9 +28,40 @@ export class Book {
 
   showDeleteDialog = false;
   selectedBook: any = null;
+  showBookModal = false;
+  editingBook: any = null;
 
   onSearch(event: { field: string; value: string }) {
 
+  }
+
+  onCreateBook() {
+    this.editingBook = undefined;
+    this.showBookModal = true;
+  }
+
+  onEditBook(book: any) {
+    this.editingBook = book;
+    this.showBookModal = true;
+  }
+
+  closeBookModal() {
+    this.showBookModal = false;
+    this.editingBook = null;
+  }
+
+  onSaveBook(book: any) {
+    if (book.id) {
+      this.books = this.books.map(b =>
+        b.id === book.id ? book : b
+      );
+    } else {
+      book.id = Date.now();
+      this.books.push(book);
+    }
+
+    this.filteredBooks = [...this.books];
+    this.closeBookModal();
   }
 
   cancelDelete() {
