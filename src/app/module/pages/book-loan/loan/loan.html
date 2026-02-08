@@ -1,1 +1,42 @@
-<p>loan works!</p>
+<h1>Gestión de Préstamos</h1>
+
+<div class="stats-container">
+  <app-stat-card
+    title="Total Préstamos"
+    icon="people">
+  </app-stat-card>
+
+  <app-stat-card
+    title="Devueltos"
+    icon="check_circle">
+  </app-stat-card>
+
+  <app-stat-card
+    title="Activos"
+    icon="check_circle">
+  </app-stat-card>
+
+  <app-stat-card
+    title="Vencidos"
+    icon="check_circle">
+  </app-stat-card>
+</div>
+
+<div class="actions">
+  <app-search-bar>
+  </app-search-bar>
+
+  <app-button
+    label="Registrar préstamo"
+    icon="add"
+    color="primary"
+    >
+  </app-button>
+</div>
+
+<app-data-table
+  [columns]="columns"
+  [data]="[]"
+  (edit)="onEditUser($event)"
+  (delete)="onAskDelete($event)">
+</app-data-table>
