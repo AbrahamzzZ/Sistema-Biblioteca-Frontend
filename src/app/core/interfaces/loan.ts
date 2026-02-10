@@ -5,6 +5,6 @@ export interface Loan{
     fechaPrestamo: string;
     fechaLimiteDevolucion: string;
     fechaRealDevolucion?: string | null;
-    observacion: string;
+    observacion?: string;
     estado: boolean;
 }

@@ -8,6 +8,9 @@ import { StatCard } from '../../../shared/components/stat-card/stat-card';
 import { SearchBar } from '../../../shared/components/search-bar/search-bar';
 import { Button } from '../../../shared/components/button/button';
 import { DataTable } from '../../../shared/components/data-table/data-table';
+import { Dialog } from '../../components/dialog/dialog';
+import { Modal } from '../../components/modal/modal';
+import { Form } from './components/form/form';
 
 
 @NgModule({
@@ -21,6 +24,9 @@ import { DataTable } from '../../../shared/components/data-table/data-table';
     SearchBar,
     Button,
     DataTable,
+    Dialog,
+    Modal,
+    Form,
     MaterialModule
   ]
 })

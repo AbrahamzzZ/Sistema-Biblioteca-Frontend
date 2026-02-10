@@ -1,0 +1,51 @@
+<app-card [title]="isEdithMode ? 'Editar Préstamo' : 'Registrar Préstamo'">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        @if(!isEdithMode){
+            <app-select-field
+            label="Usuario"
+            [options]="usuarios"
+            [control]="form.controls.usuario">
+            </app-select-field>
+
+            <app-select-field
+            label="Libros"
+            [options]="libros"
+            [control]="form.controls.libro">
+            </app-select-field>
+        }
+
+        @if(isEdithMode){
+            <div class="card-info">
+                <strong>Usuario: </strong><span>{{form.controls.usuario.value}}</span>
+                <strong>Libro: </strong><span>{{form.controls.libro.value}}</span>
+            </div>
+        }
+
+        <app-datepicker-field
+        label="Fecha de devolución esperada"
+        [control]="form.controls.fechaLimiteDevolucion">
+        </app-datepicker-field>
+
+        <app-input-field
+        label="Observaciones"
+        placeholder="Notas adicionales sobre el préstamo"
+        [control]="form.controls.observacion">
+        </app-input-field>
+
+        <div class="actions">
+            <app-button
+                label="Cancelar"
+                type="button"
+                color="primary"
+                (clickEvent)="cancel.emit()">
+            </app-button>
+
+            <app-button
+                label="Guardar"
+                type="submit"
+                [disabled]="form.invalid">
+            </app-button>
+        </div>
+    </form>
+</app-card>
