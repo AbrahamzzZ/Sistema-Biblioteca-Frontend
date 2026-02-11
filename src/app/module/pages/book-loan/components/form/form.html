@@ -23,15 +23,17 @@
         }
 
         <app-datepicker-field
-        label="Fecha de devolución esperada"
+        label="Fecha de devolución"
         [control]="form.controls.fechaLimiteDevolucion">
         </app-datepicker-field>
 
-        <app-input-field
+        <app-text-area
         label="Observaciones"
         placeholder="Notas adicionales sobre el préstamo"
-        [control]="form.controls.observacion">
-        </app-input-field>
+        [control]="form.controls.observacion"
+        [rows]="4"
+        hint="Máx. 500 caracteres">
+        </app-text-area>
 
         <div class="actions">
             <app-button
