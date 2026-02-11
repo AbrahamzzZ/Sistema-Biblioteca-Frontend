@@ -2,14 +2,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from "../../../../../shared/components/card/card";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MaterialModule } from '../../../../../shared/ui/material-module';
-import { InputField } from '../../../../../shared/components/input-field/input-field';
 import { SelectField } from '../../../../../shared/components/select-field/select-field';
 import { DatepickerField } from '../../../../../shared/components/datepicker-field/datepicker-field';
 import { Button } from '../../../../../shared/components/button/button';
+import { TextArea } from '../../../../../shared/components/text-area/text-area';
 
 @Component({
   selector: 'app-form',
-  imports: [MaterialModule, Card, InputField, SelectField, DatepickerField, Button],
+  imports: [MaterialModule, Card, TextArea, SelectField, DatepickerField, Button],
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
