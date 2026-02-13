@@ -3,14 +3,13 @@ import { MaterialModule } from '../../../../../shared/ui/material-module';
 import { Button } from '../../../../../shared/components/button/button';
 import { InputField } from '../../../../../shared/components/input-field/input-field';
 import { Checkbox } from '../../../../../shared/components/checkbox/checkbox';
-import { SelectField } from '../../../../../shared/components/select-field/select-field';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Validaciones } from '../../../../../shared/utility/validaciones';
 import { Card } from '../../../../../shared/components/card/card';
 
 @Component({
   selector: 'app-form',
-  imports: [MaterialModule, Button, InputField, Checkbox, SelectField, Card],
+  imports: [MaterialModule, Button, InputField, Checkbox, Card],
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
@@ -24,7 +23,7 @@ export class Form implements OnInit{
     titulo: new FormControl('', Validators.required),
     autor: new FormControl('', [Validators.required, Validaciones.soloLetras()]),
     editorial: new FormControl('', Validators.required),
-    anioPublicacion: new FormControl(null, Validators.required),
+    anioPublicacion: new FormControl(0, Validators.required),
     genero: new FormControl('', Validators.required),
     stock: new FormControl(0, Validators.required),
     ubicacion: new FormControl(''),
@@ -41,7 +40,10 @@ export class Form implements OnInit{
 
   ngOnInit() {
     if (this.book) {
-      this.form.patchValue(this.book);
+      this.form.patchValue({
+        ...this.book,
+        anioPublicacion: this.book.anio_Publicacion
+      });
     }
   }
 

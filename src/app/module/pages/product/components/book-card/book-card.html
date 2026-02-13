@@ -1,16 +1,22 @@
-<mat-card class="book-card">
+<mat-card class="book-card" [class.inactive]="!book.estado">
   <mat-card-content>
     <div class="content">
       <img class="img" src="image/libro.png" alt="Libro">
 
       <div class="header">
         <h3>{{ book.titulo }}</h3>
+        @if(!book.estado){
+          <span class="badge">
+            No disponible
+          </span>
+        }
 
         <div class="actions">
           <button
             mat-icon-button
             color="primary"
             aria-label="Editar"
+            [disabled]="!book.estado"
             (click)="edit.emit(book)">
             <mat-icon>edit</mat-icon>
           </button>
@@ -19,6 +25,7 @@
             mat-icon-button
             color="warn"
             aria-label="Eliminar"
+            [disabled]="!book.estado"
             (click)="delete.emit(book)">
             <mat-icon>delete</mat-icon>
           </button>

@@ -26,7 +26,12 @@ export class SearchBar {
   });
 
   onSearch() {
-    console.log('Buscar');
+    const { field, value } = this.form.value;
+
+    this.search.emit({
+      field: field!,
+      value: value ?? ''
+    });
   }
 
   onRegister() {

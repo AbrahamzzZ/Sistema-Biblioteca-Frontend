@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MaterialModule } from '../../../../../shared/ui/material-module';
-import { Book } from '../../../../../core/interfaces/book';
+import { Books } from '../../../../../core/interfaces/books';
 
 @Component({
   selector: 'app-book-card',
@@ -9,8 +9,8 @@ import { Book } from '../../../../../core/interfaces/book';
   styleUrl: './book-card.css',
 })
 export class BookCard {
-  @Input() book!: Book;
+  @Input() book!: Books;
 
-  @Output() edit = new EventEmitter<Book>();
+  @Output() edit = new EventEmitter<Books>();
   @Output() delete = new EventEmitter<any>();
 }

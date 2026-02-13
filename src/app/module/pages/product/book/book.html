@@ -42,7 +42,7 @@
 @if(showDeleteDialog){
   <app-dialog
     title="Eliminar libro"
-    message="¿Deseas eliminar el libro?"
+    message="¿Deseas desactivar el libro?"
     [itemName]="selectedBook?.name"
     (confirm)="confirmDelete()"
     (cancelDelete)="cancelDelete()">
