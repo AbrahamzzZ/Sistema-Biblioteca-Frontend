@@ -1,32 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { appsettings as ENV } from '../setting/appsetting';
 import { inject, Injectable } from '@angular/core';
-import { Book } from '../interfaces/book';
+import { Books } from '../interfaces/books';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class LibrosService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = ENV.apiUrl + 'User';
+  private readonly apiUrl = ENV.apiUrl + 'Libros';
 
-  getAll(){
-    return this.http.get<Book[]>(this.apiUrl);
+  getAll() {
+    return this.http.get<Books[]>(this.apiUrl);
   }
 
-  getById(id: number){
-    return this.http.get<Book>(`${this.apiUrl}/${id}`);
-  }  
-
-  create(book: Book){
-    return this.http.post<Book>(`${this.apiUrl}`, book);
+  getById(id: number) {
+    return this.http.get<Books>(`${this.apiUrl}/${id}`);
   }
 
-  update(book: Partial<Book>){
-    return this.http.put<Book>(`${this.apiUrl}/${book.id}`, book);
+  create(book: Partial<Books>) {
+    return this.http.post<Books>(this.apiUrl, book);
   }
 
-  delete(id: number){
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  update(id: number, book: Partial<Books>) {
+    return this.http.put<void>(`${this.apiUrl}/${id}`, book);
+  }
+
+  delete(id: number) {
+    return this.http.patch<void>(`${this.apiUrl}/${id}/desactivar`, {});
   }
 }

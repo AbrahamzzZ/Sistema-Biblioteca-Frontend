@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { LibrosService } from '../../../../core/services/book-service';
+import { Books } from '../../../../core/interfaces/books';
 
 @Component({
   selector: 'app-book',
@@ -6,7 +8,8 @@ import { Component } from '@angular/core';
   templateUrl: './book.html',
   styleUrl: './book.css',
 })
-export class Book {
+export class Book implements OnInit{
+  private readonly librosService = inject(LibrosService);
   searchOptions = [
     {label: 'Codigo', value: 'codigo'},
     {label: 'Nombre', value: 'name'},
@@ -16,23 +19,43 @@ export class Book {
     {label: 'Año Publicación', value: 'anioPublicacion'},
     {label: 'Genero', value:'genero'},
     {label: 'Ubicación', value: 'ubicacion'},
-    {label: 'Estado', value: 'estado'}
+    {label: 'Stock', value: 'stock'}
   ];
 
-  books = [
-    { id: 1, codigo: "BK-001", titulo: "Cien años de soledad", autor: "Gabriel García Márquez", editorial: "Editorial Sudamericana", anioPublicacion: 1967, genero: "Realismo mágico", stock: 12, ubicacion: "Estante A3", estado: true },
-    { id: 2, codigo: "BK-002", titulo: "Don Quijote de la Mancha", autor: "Miguel de Cervantes", editorial: "Francisco de Robles", anioPublicacion: 1605, genero: "Novela", stock: 5, ubicacion: "Estante B1", estado: false }
-  ];
-
-  filteredBooks = [...this.books];
-
+  books: Books[] = [];
+  filteredBooks: Books[] = [];
   showDeleteDialog = false;
   selectedBook: any = null;
   showBookModal = false;
   editingBook: any = null;
 
-  onSearch(event: { field: string; value: string }) {
+  ngOnInit() {
+    this.loadBooks();
+  }
 
+  loadBooks() {
+    this.librosService.getAll().subscribe({
+      next: (data) => {
+        this.books = data;
+        this.filteredBooks = data;
+      },
+      error: () => alert('Error al cargar libros')
+    });
+  }
+
+  onSearch(event: { field: string; value: string }) {
+    const { field, value } = event;
+
+    if (!value) {
+      this.filteredBooks = this.books;
+      return;
+    }
+
+    this.filteredBooks = this.books.filter(book =>
+      String((book as any)[field])
+        .toLowerCase()
+        .includes(value.toLowerCase())
+    );
   }
 
   onCreateBook() {
@@ -50,18 +73,22 @@ export class Book {
     this.editingBook = null;
   }
 
-  onSaveBook(book: any) {
-    if (book.id) {
-      this.books = this.books.map(b =>
-        b.id === book.id ? book : b
-      );
+  onSaveBook(book: Partial<Books>) {
+    if (this.editingBook) {
+      this.librosService.update(this.editingBook.id, book).subscribe({
+        next: () => {
+          this.loadBooks();
+          this.closeBookModal();
+        }
+      });
     } else {
-      book.id = Date.now();
-      this.books.push(book);
+      this.librosService.create(book).subscribe({
+        next: () => {
+          this.loadBooks();
+          this.closeBookModal();
+        }
+      });
     }
-
-    this.filteredBooks = [...this.books];
-    this.closeBookModal();
   }
 
   cancelDelete() {
@@ -70,9 +97,12 @@ export class Book {
   }
 
   confirmDelete() {
-    this.books = this.books.filter(b => b.id !== this.selectedBook.id);
-    this.filteredBooks = [...this.books];
-    this.cancelDelete();
+    this.librosService.delete(this.selectedBook.id).subscribe({
+      next: () => {
+        this.selectedBook.estado = false;
+        this.cancelDelete();
+      }
+    });
   }
 
   onAskDelete(book: any) {
