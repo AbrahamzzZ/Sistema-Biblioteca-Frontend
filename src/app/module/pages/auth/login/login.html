@@ -8,15 +8,15 @@
     <form [formGroup]="form" class="login-form">
 
       <app-input-field
-        label="Usuario"
-        type="text"
-        [control]="$any(form.get('name'))">
-      </app-input-field>
-
-      <app-input-field 
         label="Correo institucional"
         type="email"
         [control]="$any(form.get('email'))">
+      </app-input-field>
+
+      <app-input-field
+        label="Contraseña"
+        type="password"
+        [control]="$any(form.get('password'))">
       </app-input-field>
 
       <app-button
