@@ -12,5 +12,5 @@ export class BookCard {
   @Input() book!: Books;
 
   @Output() edit = new EventEmitter<Books>();
-  @Output() delete = new EventEmitter<any>();
+  @Output() toggle = new EventEmitter<Books>();
 }

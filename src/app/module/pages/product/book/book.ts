@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { LibrosService } from '../../../../core/services/book-service';
+import { BookService } from '../../../../core/services/book-service';
 import { Books } from '../../../../core/interfaces/books';
 
 @Component({
@@ -8,62 +8,106 @@ import { Books } from '../../../../core/interfaces/books';
   templateUrl: './book.html',
   styleUrl: './book.css',
 })
-export class Book implements OnInit{
-  private readonly librosService = inject(LibrosService);
+export class Book implements OnInit {
+
+  private readonly librosService = inject(BookService);
+
   searchOptions = [
-    {label: 'Codigo', value: 'codigo'},
-    {label: 'Nombre', value: 'name'},
-    {label: 'Titulo', value: 'titulo'},
-    {label: 'Autor', value: 'autor'},
-    {label: 'Editorial', value: 'editorial'},
-    {label: 'Año Publicación', value: 'anioPublicacion'},
-    {label: 'Genero', value:'genero'},
-    {label: 'Ubicación', value: 'ubicacion'},
-    {label: 'Stock', value: 'stock'}
+    { label: 'Código', value: 'codigo' },
+    { label: 'Título', value: 'titulo' },
+    { label: 'Autor', value: 'autor' },
+    { label: 'Editorial', value: 'editorial' },
+    { label: 'Año Publicación', value: 'anioPublicacion' },
+    { label: 'Género', value: 'genero' },
+    { label: 'Ubicación', value: 'ubicacion' },
+    { label: 'Stock', value: 'stock' }
   ];
 
   books: Books[] = [];
   filteredBooks: Books[] = [];
-  showDeleteDialog = false;
-  selectedBook: any = null;
+
+  showConfirmDialog = false;
+  dialogTitle = '';
+  dialogMessage = '';
+  selectedBook: Books | null = null;
+
   showBookModal = false;
-  editingBook: any = null;
+  editingBook: Books | null = null;
+
+  librosSinStock = 0;
+  stockTotal = 0;
 
   ngOnInit() {
     this.loadBooks();
   }
 
   loadBooks() {
-    this.librosService.getAll().subscribe({
-      next: (data) => {
-        this.books = data;
-        this.filteredBooks = data;
-      },
-      error: () => alert('Error al cargar libros')
+    this.librosService.getAll().subscribe(data => {
+      this.books = data;
+      this.filteredBooks = [...data];
+
+      this.librosSinStock = data.filter(b => b.stock === 0).length;
+      this.stockTotal = data.reduce((acc, b) => acc + b.stock, 0);
     });
+  }
+
+  onAskToggle(book: Books) {
+    this.selectedBook = book;
+
+    if (book.estado) {
+      this.dialogTitle = 'Desactivar libro';
+      this.dialogMessage = '¿Deseas desactivar el libro?';
+    } else {
+      this.dialogTitle = 'Activar libro';
+      this.dialogMessage = '¿Deseas activar el libro?';
+    }
+
+    this.showConfirmDialog = true;
+  }
+
+  confirmToggle() {
+    if (!this.selectedBook) return;
+
+    const action$ = this.selectedBook.estado
+      ? this.librosService.desactivar(this.selectedBook.id)
+      : this.librosService.activar(this.selectedBook.id);
+
+    action$.subscribe({
+      next: () => {
+        this.selectedBook!.estado = !this.selectedBook!.estado;
+        this.filteredBooks = [...this.books];
+        this.cancelDialog();
+      },
+      error: () => alert('Error al cambiar estado del libro')
+    });
+  }
+
+  cancelDialog() {
+    this.showConfirmDialog = false;
+    this.selectedBook = null;
   }
 
   onSearch(event: { field: string; value: string }) {
     const { field, value } = event;
 
     if (!value) {
-      this.filteredBooks = this.books;
+      this.filteredBooks = [...this.books];
       return;
     }
 
     this.filteredBooks = this.books.filter(book =>
-      String((book as any)[field])
+      String((book as any)[field] ?? '')
         .toLowerCase()
         .includes(value.toLowerCase())
     );
   }
 
   onCreateBook() {
-    this.editingBook = undefined;
+    this.editingBook = null;
     this.showBookModal = true;
   }
 
-  onEditBook(book: any) {
+  onEditBook(book: Books) {
     this.editingBook = book;
     this.showBookModal = true;
   }
@@ -74,39 +118,20 @@ export class Book implements OnInit{
   }
 
   onSaveBook(book: Partial<Books>) {
-    if (this.editingBook) {
-      this.librosService.update(this.editingBook.id, book).subscribe({
-        next: () => {
-          this.loadBooks();
-          this.closeBookModal();
-        }
+    if (this.editingBook?.id) {
+      this.librosService.update(this.editingBook.id, book).subscribe(() => {
+        this.loadBooks();
+        this.closeBookModal();
       });
     } else {
-      this.librosService.create(book).subscribe({
-        next: () => {
-          this.loadBooks();
-          this.closeBookModal();
-        }
+      this.librosService.create(book).subscribe(() => {
+        this.loadBooks();
+        this.closeBookModal();
       });
     }
   }
 
-  cancelDelete() {
-    this.showDeleteDialog = false;
-    this.selectedBook = null;
-  }
-
-  confirmDelete() {
-    this.librosService.delete(this.selectedBook.id).subscribe({
-      next: () => {
-        this.selectedBook.estado = false;
-        this.cancelDelete();
-      }
-    });
-  }
-
-  onAskDelete(book: any) {
-    this.selectedBook = book;
-    this.showDeleteDialog = true;
+  get librosActivos() {
+    return this.books.filter(b => b.estado).length;
   }
 }

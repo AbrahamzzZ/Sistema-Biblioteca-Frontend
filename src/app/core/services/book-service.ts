@@ -6,7 +6,7 @@ import { Books } from '../interfaces/books';
 @Injectable({
   providedIn: 'root',
 })
-export class LibrosService {
+export class BookService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = ENV.apiUrl + 'Libros';
 
@@ -26,7 +26,11 @@ export class LibrosService {
     return this.http.put<void>(`${this.apiUrl}/${id}`, book);
   }
 
-  delete(id: number) {
+  activar(id: number) {
+    return this.http.patch<void>(`${this.apiUrl}/${id}/activar`, {});
+  }
+
+  desactivar(id: number) {
     return this.http.patch<void>(`${this.apiUrl}/${id}/desactivar`, {});
   }
 }

@@ -1,11 +1,11 @@
 export interface User{
-    id: number;
-    nombreCompleto: string;
-    cedula: string;
-    correoElectronico: string;
-    direccion: string;
-    telefono: string;
-    estado: boolean;
+  id: number;
+  nombre_Completo: string;
+  cedula: string;
+  correoElectronico: string;
+  direccion: string;
+  telefono: string;
+  estado: boolean;
 }
 
 export interface CreateUserRequest {

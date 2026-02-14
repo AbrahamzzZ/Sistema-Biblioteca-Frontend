@@ -8,4 +8,9 @@
             </mat-option>
         }
     </mat-select>
+    @if(control.invalid && (control.touched || control.dirty)){
+        <mat-error>
+            {{ label }} es obligatorio
+        </mat-error>
+    }
 </mat-form-field>

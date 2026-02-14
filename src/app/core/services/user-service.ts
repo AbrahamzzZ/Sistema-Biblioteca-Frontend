@@ -26,7 +26,11 @@ export class UserService {
     return this.http.put<void>(`${this.apiUrl}/${id}`, user);
   }
 
-  delete(id: number){
+  desactivar(id: number) {
     return this.http.patch<void>(`${this.apiUrl}/${id}/desactivar`, {});
+  }
+
+  activar(id: number) {
+    return this.http.patch<void>(`${this.apiUrl}/${id}/activar`, {});
   }
 }

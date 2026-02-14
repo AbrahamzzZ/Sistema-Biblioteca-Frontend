@@ -14,7 +14,7 @@ export class DataTable {
   @Input() showActions: boolean = true;
 
   @Output() edit = new EventEmitter<any>();
-  @Output() delete = new EventEmitter<any>();
+  @Output() toggle = new EventEmitter<any>();
 
   displayedColumns(): string[] {
     return this.columns.map(col =>

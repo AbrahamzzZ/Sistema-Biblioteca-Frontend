@@ -1,53 +1,56 @@
 <app-card [title]="isEdithMode ? 'Editar Préstamo' : 'Registrar Préstamo'">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-        @if(!isEdithMode){
-            <app-select-field
-            label="Usuario"
-            [options]="usuarios"
-            [control]="form.controls.usuario">
-            </app-select-field>
+    @if(!isEdithMode){
+      <app-select-field
+        label="Usuario"
+        [options]="usuarios"
+        valueKey="id"
+        labelKey="nombre"
+        [control]="form.controls.usuario">
+      </app-select-field>
 
-            <app-select-field
-            label="Libros"
-            [options]="libros"
-            [control]="form.controls.libro">
-            </app-select-field>
-        }
+      <app-select-field
+        label="Libro"
+        [options]="libros"
+        valueKey="id"
+        labelKey="titulo"
+        [control]="form.controls.libro">
+      </app-select-field>
+    }
 
-        @if(isEdithMode){
-            <div class="card-info">
-                <strong>Usuario: </strong><span>{{form.controls.usuario.value}}</span>
-                <strong>Libro: </strong><span>{{form.controls.libro.value}}</span>
-            </div>
-        }
+    @if(isEdithMode){
+      <div class="card-info">
+        <strong>Usuario:</strong> <span>{{ loan?.user }}</span>
+        <strong>Libro:</strong> <span>{{ loan?.book }}</span>
+      </div>
+    }
 
-        <app-datepicker-field
-        label="Fecha de devolución"
-        [control]="form.controls.fechaLimiteDevolucion">
-        </app-datepicker-field>
+    <app-datepicker-field
+      label="Fecha de devolución"
+      [control]="form.controls.fechaLimiteDevolucion">
+    </app-datepicker-field>
 
-        <app-text-area
-        label="Observaciones"
-        placeholder="Notas adicionales sobre el préstamo"
-        [control]="form.controls.observacion"
-        [rows]="4"
-        hint="Máx. 500 caracteres">
-        </app-text-area>
+    <app-text-area
+      label="Observaciones"
+      [control]="form.controls.observacion"
+      [rows]="4"
+      hint="Máx. 500 caracteres">
+    </app-text-area>
 
-        <div class="actions">
-            <app-button
-                label="Cancelar"
-                type="button"
-                color="primary"
-                (clickEvent)="cancel.emit()">
-            </app-button>
+    <div class="actions">
+      <app-button
+        label="Cancelar"
+        type="button"
+        (clickEvent)="cancel.emit()">
+      </app-button>
 
-            <app-button
-                label="Guardar"
-                type="submit"
-                [disabled]="form.invalid">
-            </app-button>
-        </div>
-    </form>
+      <app-button
+        label="Guardar"
+        type="submit"
+        [disabled]="form.invalid">
+      </app-button>
+    </div>
+
+  </form>
 </app-card>

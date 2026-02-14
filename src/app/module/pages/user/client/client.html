@@ -9,13 +9,13 @@
 
   <app-stat-card
     title="Usuarios activos"
-    [count]="filteredUsers.length"
+    [count]="usuariosActivos"
     icon="check_circle">
   </app-stat-card>
 
   <app-stat-card
-    title="Usuarios desactivos"
-    [count]="filteredUsers.length"
+    title="Usuarios inactivos"
+    [count]="usuariosInactivos"
     icon="remove_circle_outline">
   </app-stat-card>
 </div>
@@ -38,28 +38,25 @@
   [columns]="columns"
   [data]="filteredUsers"
   (edit)="onEditUser($event)"
-  (delete)="onAskDelete($event)">
+  (toggle)="onAskToggle($event)">
 </app-data-table>
 
-@if(showDeleteDialog){
+@if(showConfirmDialog){
   <app-dialog
-    title="Eliminar usuario"
-    message="¿Deseas eliminar el usuario?"
-    [itemName]="selectedUser?.name"
-    (confirm)="confirmDelete()"
-    (cancelDelete)="cancelDelete()">
+    [title]="dialogTitle"
+    [message]="dialogMessage"
+    [itemName]="selectedUser?.nombre_Completo"
+    (confirm)="confirmToggle()"
+    (cancelDelete)="cancelDialog()">
   </app-dialog>
 }
 
 @if(showUserModal){
-  <app-modal
-    (close)="closeUserModal()">
-
+  <app-modal (close)="closeUserModal()">
     <app-form
       [user]="editingUser"
       (cancel)="closeUserModal()"
       (save)="onSaveUser($event)">
     </app-form>
-
   </app-modal>
 }
