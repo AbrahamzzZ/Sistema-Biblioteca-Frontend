@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Table } from '../../../../core/interfaces/table';
+import { Table } from '../../../../core/interfaces/other/table';
 import { UserService } from '../../../../core/services/user-service';
 import { BookService } from '../../../../core/services/book-service';
 
@@ -10,10 +10,9 @@ import { BookService } from '../../../../core/services/book-service';
   styleUrl: './loan.css',
 })
 export class Loan implements OnInit{
-
   private readonly userService = inject(UserService);
   private readonly bookService = inject(BookService);
-
+  modalMode: 'create' | 'edit' | 'view' = 'create';
   searchOptions = [
     {label: 'Libro', value: 'book',},
     {label: 'Usuario', value: 'user'},
@@ -76,16 +75,23 @@ export class Loan implements OnInit{
 
   }
 
-  onEditLoan(loan: any){
-    this.editingLoan = loan;
-    this.showUserModal = true;
-  }
-
   onCreateLoan() {
     this.editingLoan = null;
+    this.modalMode = 'create';
     this.showUserModal = true;
   }
 
+  onEditLoan(loan: any) {
+    this.editingLoan = loan;
+    this.modalMode = 'edit';
+    this.showUserModal = true;
+  }
+
+  onViewLoan(loan: any) {
+    this.editingLoan = loan;
+    this.modalMode = 'view';
+    this.showUserModal = true;
+  }
   onAskDelete(loan: any){
     this.selectedLoan = loan;
     this.showDeleteDialog = true;

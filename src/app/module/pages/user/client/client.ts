@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Table } from '../../../../core/interfaces/table';
+import { Table } from '../../../../core/interfaces/other/table';
 import { CreateUserRequest, User } from '../../../../core/interfaces/user';
 import { UserService } from '../../../../core/services/user-service';
 

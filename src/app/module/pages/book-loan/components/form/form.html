@@ -1,7 +1,8 @@
-<app-card [title]="isEdithMode ? 'Editar Préstamo' : 'Registrar Préstamo'">
+<app-card [title]="isEditMode ? 'Editar Préstamo' : 'Registrar Préstamo'">
+
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    @if(!isEdithMode){
+    @if (isCreateMode) {
       <app-select-field
         label="Usuario"
         [options]="usuarios"
@@ -19,23 +20,25 @@
       </app-select-field>
     }
 
-    @if(isEdithMode){
+    @if (isEditMode) {
       <div class="card-info">
-        <strong>Usuario:</strong> <span>{{ loan?.user }}</span>
-        <strong>Libro:</strong> <span>{{ loan?.book }}</span>
+        <strong>Usuario:</strong>
+        <span>{{ loan?.user }}</span>
+
+        <strong>Libro:</strong>
+        <span>{{ loan?.book }}</span>
       </div>
     }
 
     <app-datepicker-field
-      label="Fecha de devolución"
+      label="Fecha límite de devolución"
       [control]="form.controls.fechaLimiteDevolucion">
     </app-datepicker-field>
 
     <app-text-area
       label="Observaciones"
       [control]="form.controls.observacion"
-      [rows]="4"
-      hint="Máx. 500 caracteres">
+      [rows]="4">
     </app-text-area>
 
     <div class="actions">

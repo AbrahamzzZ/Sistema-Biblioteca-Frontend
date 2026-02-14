@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { Menu } from '../../../../../core/interfaces/menu';
+import { Menu } from '../../../../../core/interfaces/other/menu';
 
 @Component({
   selector: 'app-main',

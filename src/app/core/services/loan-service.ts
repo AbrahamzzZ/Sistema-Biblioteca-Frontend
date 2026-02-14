@@ -1,32 +1,37 @@
 import { inject, Injectable } from '@angular/core';
 import { appsettings as ENV } from '../setting/appsetting';
 import { HttpClient } from '@angular/common/http';
-import { Loan } from '../interfaces/loan';
+import { Loan } from '../interfaces/loan/loan';
+import { LoanDetail } from '../interfaces/loan/LoanDetail';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoanService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = ENV.apiUrl + 'User';
+  private readonly apiUrl = ENV.apiUrl + 'Prestamos';
 
-  getAll(){
-    return this.http.get<Loan[]>(this.apiUrl);
+ getAll() {
+    return this.http.get<LoanDetail[]>(this.apiUrl);
   }
 
-  getById(id: number){
-    return this.http.get<Loan>(`${this.apiUrl}/${id}`);
-  }  
-
-  create(loan: Loan){
-    return this.http.post<Loan>(`${this.apiUrl}`, loan);
+  getById(id: number) {
+    return this.http.get<LoanDetail>(`${this.apiUrl}/${id}`);
   }
 
-  update(loan: Partial<Loan>){
-    return this.http.put<Loan>(`${this.apiUrl}/${loan.id}`, loan);
+  create(payload: Loan) {
+    return this.http.post<LoanDetail>(this.apiUrl, payload);
   }
 
-  delete(id: number){
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  update(id: number, payload: Partial<Loan>) {
+    return this.http.put<LoanDetail>(`${this.apiUrl}/${id}`, payload);
+  }
+
+  registrarDevolucion(id: number, fechaRealDevolucion: string) {
+    return this.http.post<void>(`${this.apiUrl}/${id}/devolver`,{ fechaDevolucion: fechaRealDevolucion } );
+  }
+
+  anular(id: number, observacion?: string) {
+    return this.http.post<void>(`${this.apiUrl}/${id}/anular`, observacion ?? null);
   }
 }

@@ -1,0 +1,18 @@
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.section {
+  margin-top: 16px;
+}
+
+.book-list {
+  padding-left: 16px;
+}
+
+.inactive {
+  color: #c62828;
+  font-weight: 600;
+}

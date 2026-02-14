@@ -11,7 +11,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 export class TextArea {
   @Input() label!: string;
   @Input() control!: FormControl;
-
+  @Input() disabled = false;
   @Input() placeholder = '';
   @Input() rows = 3;
   @Input() maxlength?: number;

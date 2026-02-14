@@ -13,4 +13,5 @@ export class DatepickerField {
   @Input() control!: FormControl;
   @Input() minDate?: Date;
   @Input() maxDate?: Date;
+  @Input() disabled = false;
 }
