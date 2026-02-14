@@ -5,6 +5,7 @@ import { InputField } from '../../../../../shared/components/input-field/input-f
 import { Card } from '../../../../../shared/components/card/card';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateUserRequest } from '../../../../../core/interfaces/user';
+import { Validaciones } from '../../../../../shared/utility/validaciones';
 
 @Component({
   selector: 'app-form',
@@ -19,11 +20,11 @@ export class Form implements OnInit {
   @Output() cancel = new EventEmitter<void>();
 
   form = new FormGroup({
-    nombreCompleto: new FormControl('', Validators.required),
-    cedula: new FormControl('', Validators.required),
-    correoElectronico: new FormControl('', [Validators.required, Validators.email]),
-    direccion: new FormControl(''),
-    telefono: new FormControl('')
+    nombreCompleto: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(3, 30), Validaciones.soloLetras()]),
+    cedula: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.soloNumeros(), Validaciones.longitudMinMax(1, 10)]),
+    correoElectronico: new FormControl('', [Validators.required, Validators.email, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(3, 80)]),
+    direccion: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(3, 80)]),
+    telefono: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.soloNumeros(), Validaciones.longitudMinMax(1, 10)])
   });
 
   ngOnInit() {
