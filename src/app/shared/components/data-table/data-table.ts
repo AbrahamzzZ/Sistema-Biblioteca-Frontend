@@ -13,7 +13,6 @@ export class DataTable {
   @Input() data: any[] = [];
   @Input() showActions: boolean = true;
 
-  @Output() view = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
 
