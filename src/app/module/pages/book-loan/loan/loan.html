@@ -59,6 +59,8 @@
 
     <app-form
       [loan]="editingLoan"
+      [libros]="libros"
+      [usuarios]="usuarios"
       (cancel)="closeLoanModal()"
       (save)="onSaveLoan($event)">
     </app-form>

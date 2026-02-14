@@ -13,8 +13,11 @@ import { TextArea } from '../../../../../shared/components/text-area/text-area';
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
-export class Form implements OnInit{
+export class Form implements OnInit {
+
   @Input() loan?: any;
+  @Input() usuarios: any[] = [];
+  @Input() libros: any[] = [];
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
@@ -26,23 +29,29 @@ export class Form implements OnInit{
     observacion: new FormControl('')
   });
 
-  usuarios = [];
-  libros = [];
-
-  ngOnInit(){
-    if(this.loan){
-      this.form.patchValue(this.loan);
+  ngOnInit() {
+    if (this.loan) {
+      this.form.patchValue({
+        usuario: this.loan.usuarioId,
+        libro: this.loan.libroId,
+        fechaLimiteDevolucion: this.loan.fechaLimiteDevolucion,
+        observacion: this.loan.observacion
+      });
 
       this.form.controls.usuario.disable();
       this.form.controls.libro.disable();
     }
   }
 
-  onSubmit(){
-    if(this.form.valid){
+  onSubmit() {
+    if (this.form.valid) {
       this.save.emit({
         ...this.loan,
-        ...this.form.getRawValue()
+        usuarioId: this.form.getRawValue().usuario,
+        libroId: this.form.getRawValue().libro,
+        fechaLimiteDevolucion: this.form.getRawValue().fechaLimiteDevolucion,
+        observacion: this.form.getRawValue().observacion,
+        estado: true
       });
     }
   }

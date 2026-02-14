@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Table } from '../../../../core/interfaces/table';
+import { UserService } from '../../../../core/services/user-service';
+import { BookService } from '../../../../core/services/book-service';
 
 @Component({
   selector: 'app-loan',
@@ -7,7 +9,10 @@ import { Table } from '../../../../core/interfaces/table';
   templateUrl: './loan.html',
   styleUrl: './loan.css',
 })
-export class Loan {
+export class Loan implements OnInit{
+
+  private readonly userService = inject(UserService);
+  private readonly bookService = inject(BookService);
 
   searchOptions = [
     {label: 'Libro', value: 'book',},
@@ -24,6 +29,14 @@ export class Loan {
     { label: 'Acciones', type: 'actions' }
   ];
 
+  usuarios: any[] = [];
+  libros: any[] = [];
+
+  ngOnInit() {
+    this.loadLibrosActivos();
+    this.loadUsuariosActivos();
+  }
+
   loans = [
     {
       id: 1, book: 'Cien años de soledad', user: 'Abraham Farfan', loadDate: '2025-01-1', returnDate: '2025-02-20'
@@ -36,6 +49,28 @@ export class Loan {
   selectedLoan: any = null;
   showUserModal = false;
   editingLoan: any = null;
+
+  loadUsuariosActivos() {
+    this.userService.getAll().subscribe(users => {
+      this.usuarios = users
+        .filter(u => u.estado === true)
+        .map(u => ({
+          id: u.id,
+          nombre: u.nombre_Completo
+        }));
+    });
+  }
+
+  loadLibrosActivos() {
+    this.bookService.getAll().subscribe(books => {
+      this.libros = books
+        .filter(b => b.estado === true && b.stock > 0)
+        .map(b => ({
+          id: b.id,
+          titulo: b.titulo
+        }));
+    });
+  }
 
   onSearch(event: { field: string; value: string }) {
 

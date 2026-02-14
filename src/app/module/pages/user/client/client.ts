@@ -53,7 +53,6 @@ export class Client implements OnInit {
     });
   }
 
-  // 👉 Mostrar diálogo de confirmación
   onAskToggle(user: User) {
     this.selectedUser = user;
 
@@ -68,7 +67,6 @@ export class Client implements OnInit {
     this.showConfirmDialog = true;
   }
 
-  // 👉 Confirmar activación / desactivación
   confirmToggle() {
     if (!this.selectedUser) return;
 

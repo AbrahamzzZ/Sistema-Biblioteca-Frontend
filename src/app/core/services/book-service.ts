@@ -6,7 +6,7 @@ import { Books } from '../interfaces/books';
 @Injectable({
   providedIn: 'root',
 })
-export class LibrosService {
+export class BookService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = ENV.apiUrl + 'Libros';
 

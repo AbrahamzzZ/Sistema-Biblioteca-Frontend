@@ -1,6 +1,6 @@
 export interface User{
   id: number;
-  nombreCompleto: string;
+  nombre_Completo: string;
   cedula: string;
   correoElectronico: string;
   direccion: string;

@@ -1,39 +1,47 @@
 <div>
-    <table mat-table [dataSource]="data">
-        <!-- Columnas dinámicas -->
-        <ng-container *ngFor="let col of columns" [matColumnDef]="col.key ?? ''">
-            <th mat-header-cell *matHeaderCellDef>
-            {{ col.label }}
-            </th>
+  <table mat-table [dataSource]="data">
 
-            <td mat-cell *matCellDef="let element">
-            {{ element[col.key ?? ''] }}
-            </td>
-        </ng-container>
+    <!-- Columnas dinámicas -->
+    <ng-container *ngFor="let col of columns" [matColumnDef]="col.key ?? ''">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ col.label }}
+      </th>
 
-        <!-- Columna de acciones -->
-        <ng-container matColumnDef="actions" *ngIf="showActions">
-            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element[col.key ?? ''] }}
+      </td>
+    </ng-container>
 
-            <td mat-cell *matCellDef="let element" [ngClass]="{ 'inactive-cell': element.estado === false }">
+    <!-- Columna de acciones -->
+    <ng-container matColumnDef="actions" *ngIf="showActions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
 
-            <button mat-icon-button (click)="edit.emit(element)">
-                <mat-icon>edit</mat-icon>
-            </button>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          (click)="edit.emit(element)"
+          [disabled]="element.estado === false">
+          <mat-icon>edit</mat-icon>
+        </button>
 
-            <button mat-icon-button [color]="element.estado ? 'warn' : 'primary'"  (click)="toggle.emit(element)">
-                <mat-icon>
-                    {{ element.estado ? 'block' : 'check_circle' }}
-                </mat-icon>
-            </button>
+        <button
+          mat-icon-button
+          [color]="element.estado ? 'warn' : 'primary'"
+          (click)="toggle.emit(element)">
+          <mat-icon>
+            {{ element.estado ? 'block' : 'check_circle' }}
+          </mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
 
-            </td>
-        </ng-container>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns()"
+      [ngClass]="{ 'inactive-row': row.estado === false }">
+    </tr>
 
-        <!-- Header y filas -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
-
-    </table>
-
+  </table>
 </div>

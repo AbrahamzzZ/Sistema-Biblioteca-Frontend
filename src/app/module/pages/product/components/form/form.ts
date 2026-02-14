@@ -2,14 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MaterialModule } from '../../../../../shared/ui/material-module';
 import { Button } from '../../../../../shared/components/button/button';
 import { InputField } from '../../../../../shared/components/input-field/input-field';
-import { Checkbox } from '../../../../../shared/components/checkbox/checkbox';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Validaciones } from '../../../../../shared/utility/validaciones';
 import { Card } from '../../../../../shared/components/card/card';
 
 @Component({
   selector: 'app-form',
-  imports: [MaterialModule, Button, InputField, Checkbox, Card],
+  imports: [MaterialModule, Button, InputField, Card],
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
@@ -26,17 +25,8 @@ export class Form implements OnInit{
     anioPublicacion: new FormControl(0, [Validators.required, Validaciones.rangoNumero(1500, new Date().getFullYear())]),
     genero: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(3, 40)]),
     stock: new FormControl(0, [Validators.required, Validaciones.rangoNumero(0, 10000)]),
-    ubicacion: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(2, 30)]),
-    estado: new FormControl(true),
+    ubicacion: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(2, 30)])
   });
-
-  generos = [
-    'Novela',
-    'Ciencia ficción',
-    'Fantasía',
-    'Historia',
-    'Educativo',
-  ];
 
   ngOnInit() {
     if (this.book) {

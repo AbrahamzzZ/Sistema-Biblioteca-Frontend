@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { LibrosService } from '../../../../core/services/book-service';
+import { BookService } from '../../../../core/services/book-service';
 import { Books } from '../../../../core/interfaces/books';
 
 @Component({
@@ -10,7 +10,7 @@ import { Books } from '../../../../core/interfaces/books';
 })
 export class Book implements OnInit {
 
-  private readonly librosService = inject(LibrosService);
+  private readonly librosService = inject(BookService);
 
   searchOptions = [
     { label: 'Código', value: 'codigo' },
