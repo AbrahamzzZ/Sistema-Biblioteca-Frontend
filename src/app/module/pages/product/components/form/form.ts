@@ -20,13 +20,13 @@ export class Form implements OnInit{
   @Output() cancel = new EventEmitter<void>();
 
   form = new FormGroup({
-    titulo: new FormControl('', Validators.required),
-    autor: new FormControl('', [Validators.required, Validaciones.soloLetras()]),
-    editorial: new FormControl('', Validators.required),
-    anioPublicacion: new FormControl(0, Validators.required),
-    genero: new FormControl('', Validators.required),
-    stock: new FormControl(0, Validators.required),
-    ubicacion: new FormControl(''),
+    titulo: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(3, 100)]),
+    autor: new FormControl('', [Validators.required, Validaciones.soloLetras(), Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(3, 10)]),
+    editorial: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(3, 60)]),
+    anioPublicacion: new FormControl(0, [Validators.required, Validaciones.rangoNumero(1500, new Date().getFullYear())]),
+    genero: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(3, 40)]),
+    stock: new FormControl(0, [Validators.required, Validaciones.rangoNumero(0, 10000)]),
+    ubicacion: new FormControl('', [Validators.required, Validaciones.noSoloEspacios(), Validaciones.longitudMinMax(2, 30)]),
     estado: new FormControl(true),
   });
 
