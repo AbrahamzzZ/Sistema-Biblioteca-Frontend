@@ -14,10 +14,10 @@ import { TextArea } from '../../../../../shared/components/text-area/text-area';
   styleUrl: './form.css',
 })
 export class Form implements OnInit {
-
   @Input() loan?: any;
   @Input() usuarios: any[] = [];
   @Input() libros: any[] = [];
+  @Input() mode: 'create' | 'edit' = 'create';
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
@@ -29,7 +29,7 @@ export class Form implements OnInit {
     observacion: new FormControl('')
   });
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.loan) {
       this.form.patchValue({
         usuario: this.loan.usuarioId,
@@ -38,25 +38,30 @@ export class Form implements OnInit {
         observacion: this.loan.observacion
       });
 
-      this.form.controls.usuario.disable();
-      this.form.controls.libro.disable();
+      if (this.mode === 'edit') {
+        this.form.controls.usuario.disable();
+        this.form.controls.libro.disable();
+      }
     }
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      this.save.emit({
-        ...this.loan,
-        usuarioId: this.form.getRawValue().usuario,
-        libroId: this.form.getRawValue().libro,
-        fechaLimiteDevolucion: this.form.getRawValue().fechaLimiteDevolucion,
-        observacion: this.form.getRawValue().observacion,
-        estado: true
-      });
-    }
+  onSubmit(): void {
+    if (this.form.invalid) return;
+
+    this.save.emit({
+      ...this.loan,
+      usuarioId: this.form.getRawValue().usuario,
+      libroId: this.form.getRawValue().libro,
+      fechaLimiteDevolucion: this.form.getRawValue().fechaLimiteDevolucion,
+      observacion: this.form.getRawValue().observacion
+    });
   }
 
-  get isEdithMode(): boolean {
-    return !!this.loan;
+  get isCreateMode(): boolean {
+    return this.mode === 'create';
+  }
+
+  get isEditMode(): boolean {
+    return this.mode === 'edit';
   }
 }

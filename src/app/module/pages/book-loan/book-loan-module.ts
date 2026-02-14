@@ -11,6 +11,7 @@ import { DataTable } from '../../../shared/components/data-table/data-table';
 import { Dialog } from '../../components/dialog/dialog';
 import { Modal } from '../../components/modal/modal';
 import { Form } from './components/form/form';
+import { LoanDialog } from './components/loan-dialog/loan-dialog';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { Form } from './components/form/form';
     Dialog,
     Modal,
     Form,
+    LoanDialog,
     MaterialModule
   ]
 })

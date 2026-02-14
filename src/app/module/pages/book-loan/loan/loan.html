@@ -40,6 +40,10 @@
 <app-data-table
   [columns]="columns"
   [data]="filteredLoans"
+  [showView]="true"
+  [showEdit]="true"
+  [showDelete]="true"
+  (view)="onViewLoan($event)"
   (edit)="onEditLoan($event)"
   (delete)="onAskDelete($event)">
 </app-data-table>
@@ -53,17 +57,24 @@
   </app-dialog>
 }
 
-@if(showUserModal){
-  <app-modal
-    (close)="closeLoanModal()">
-
+@if (showUserModal && modalMode !== 'view') {
+  <app-modal (close)="closeLoanModal()">
     <app-form
       [loan]="editingLoan"
+      [mode]="modalMode"
       [libros]="libros"
       [usuarios]="usuarios"
       (cancel)="closeLoanModal()"
       (save)="onSaveLoan($event)">
     </app-form>
+  </app-modal>
+}
 
+@if (showUserModal && modalMode === 'view') {
+  <app-modal (close)="closeLoanModal()">
+    <app-loan-dialog
+      [loan]="editingLoan"
+      (close)="closeLoanModal()">
+    </app-loan-dialog>
   </app-modal>
 }

@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MaterialModule } from '../../ui/material-module';
-import { Menu } from '../../../core/interfaces/menu';
+import { Menu } from '../../../core/interfaces/other/menu';
 
 @Component({
   selector: 'app-sidebar',
