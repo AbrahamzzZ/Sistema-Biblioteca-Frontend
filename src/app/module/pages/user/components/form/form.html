@@ -2,26 +2,31 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <app-input-field
-      label="Nombre"
-      [control]="form.controls.name">
-    </app-input-field>
+  <app-input-field
+    label="Nombre completo"
+    [control]="form.controls.nombreCompleto">
+  </app-input-field>
 
-    <app-input-field
-      label="Correo"
-      type="email"
-      [control]="form.controls.email">
-    </app-input-field>
+  <app-input-field
+    label="Cédula"
+    [control]="form.controls.cedula">
+  </app-input-field>
 
-    <app-input-field
-      label="Teléfono"
-      [control]="form.controls.phone">
-    </app-input-field>
+  <app-input-field
+    label="Correo"
+    type="email"
+    [control]="form.controls.correoElectronico">
+  </app-input-field>
 
-    <app-checkbox
-      label="Usuario activo"
-      [control]="form.controls.estado">
-    </app-checkbox>
+  <app-input-field
+    label="Dirección"
+    [control]="form.controls.direccion">
+  </app-input-field>
+
+  <app-input-field
+    label="Teléfono"
+    [control]="form.controls.telefono">
+  </app-input-field>
 
     <div class="actions">
       <app-button
@@ -38,5 +43,4 @@
     </div>
 
   </form>
-
 </app-card>
