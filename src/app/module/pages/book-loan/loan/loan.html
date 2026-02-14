@@ -1,80 +1,22 @@
-<h1>Gestión de Préstamos</h1>
-
-<div class="stats-container">
-  <app-stat-card
-    title="Total Préstamos"
-    icon="people">
-  </app-stat-card>
-
-  <app-stat-card
-    title="Devueltos"
-    icon="check_circle">
-  </app-stat-card>
-
-  <app-stat-card
-    title="Activos"
-    icon="import_contacts">
-  </app-stat-card>
-
-  <app-stat-card
-    title="Vencidos"
-    icon="warning">
-  </app-stat-card>
-</div>
+<h1>Registrar Préstamo</h1>
 
 <div class="actions">
-  <app-search-bar
-    [options]="searchOptions"
-    (search)="onSearch($event)">
-  </app-search-bar>
-
   <app-button
     label="Registrar préstamo"
     icon="add"
     color="primary"
-    (clickEvent)="onCreateLoan()"
-    >
+    (clickEvent)="onCreateLoan()">
   </app-button>
 </div>
 
-<app-data-table
-  [columns]="columns"
-  [data]="filteredLoans"
-  [showView]="true"
-  [showEdit]="true"
-  [showDelete]="true"
-  (view)="onViewLoan($event)"
-  (edit)="onEditLoan($event)"
-  (delete)="onAskDelete($event)">
-</app-data-table>
-
-@if(showDeleteDialog){
-  <app-dialog
-    title="Eliminar usuario"
-    message="¿Deseas dar de baja este préstamo?"
-    (confirm)="confirmDelete()"
-    (cancelDelete)="cancelDelete()">
-  </app-dialog>
-}
-
-@if (showUserModal && modalMode !== 'view') {
+@if (showLoanModal) {
   <app-modal (close)="closeLoanModal()">
     <app-form
-      [loan]="editingLoan"
-      [mode]="modalMode"
-      [libros]="libros"
       [usuarios]="usuarios"
+      [libros]="libros"
+      mode="create"
       (cancel)="closeLoanModal()"
       (save)="onSaveLoan($event)">
     </app-form>
-  </app-modal>
-}
-
-@if (showUserModal && modalMode === 'view') {
-  <app-modal (close)="closeLoanModal()">
-    <app-loan-dialog
-      [loan]="editingLoan"
-      (close)="closeLoanModal()">
-    </app-loan-dialog>
   </app-modal>
 }
