@@ -27,6 +27,11 @@ button {
   font-size: 13px;
 }
 
+.inactive-cell {
+  background-color: #fdecea;
+  color: #b71c1c;
+}
+
 ::ng-deep .mat-mdc-header-cell {
   text-align: center !important;
 }

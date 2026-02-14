@@ -10,7 +10,9 @@ import { UserService } from '../../../../core/services/user-service';
   styleUrl: './client.css',
 })
 export class Client implements OnInit {
+
   private readonly userService = inject(UserService);
+
   searchOptions = [
     { label: 'Nombre', value: 'nombre_Completo' },
     { label: 'Cédula', value: 'cedula' },
@@ -29,10 +31,13 @@ export class Client implements OnInit {
   users: User[] = [];
   filteredUsers: User[] = [];
 
-  showDeleteDialog = false;
-  selectedUser: any = null;
+  showConfirmDialog = false;
+  dialogTitle = '';
+  dialogMessage = '';
+  selectedUser: User | null = null;
+
   showUserModal = false;
-  editingUser: any = null;
+  editingUser: User | null = null;
 
   ngOnInit() {
     this.loadUsers();
@@ -42,10 +47,48 @@ export class Client implements OnInit {
     this.userService.getAll().subscribe({
       next: data => {
         this.users = data;
-        this.filteredUsers = data;
+        this.filteredUsers = [...data];
       },
       error: () => alert('Error al cargar usuarios')
     });
+  }
+
+  // 👉 Mostrar diálogo de confirmación
+  onAskToggle(user: User) {
+    this.selectedUser = user;
+
+    if (user.estado) {
+      this.dialogTitle = 'Desactivar usuario';
+      this.dialogMessage = '¿Deseas desactivar el usuario?';
+    } else {
+      this.dialogTitle = 'Activar usuario';
+      this.dialogMessage = '¿Deseas activar el usuario?';
+    }
+
+    this.showConfirmDialog = true;
+  }
+
+  // 👉 Confirmar activación / desactivación
+  confirmToggle() {
+    if (!this.selectedUser) return;
+
+    const action$ = this.selectedUser.estado
+      ? this.userService.desactivar(this.selectedUser.id)
+      : this.userService.activar(this.selectedUser.id);
+
+    action$.subscribe({
+      next: () => {
+        this.selectedUser!.estado = !this.selectedUser!.estado;
+        this.filteredUsers = [...this.users];
+        this.cancelDialog();
+      },
+      error: () => alert('Error al cambiar estado')
+    });
+  }
+
+  cancelDialog() {
+    this.showConfirmDialog = false;
+    this.selectedUser = null;
   }
 
   onSearch(event: { field: string; value: string }) {
@@ -63,58 +106,40 @@ export class Client implements OnInit {
     );
   }
 
-  onAskDelete(user: any) {
-    this.selectedUser = user;
-    this.showDeleteDialog = true;
-  }
-
   onCreateUser() {
     this.editingUser = null;
     this.showUserModal = true;
   }
 
-  onEditUser(user: any) {
+  onEditUser(user: User) {
     this.editingUser = user;
     this.showUserModal = true;
   }
 
   closeUserModal() {
     this.showUserModal = false;
+    this.editingUser = null;
   }
 
   onSaveUser(payload: CreateUserRequest) {
-
     if (this.editingUser?.id) {
-      this.userService.update(this.editingUser.id, payload).subscribe({
-        next: () => {
-          this.closeUserModal();
-          this.loadUsers();
-        },
-        error: () => alert('Error al actualizar usuario')
+      this.userService.update(this.editingUser.id, payload).subscribe(() => {
+        this.closeUserModal();
+        this.loadUsers();
       });
     } else {
-      this.userService.create(payload).subscribe({
-        next: () => {
-          this.closeUserModal();
-          this.loadUsers();
-        },
-        error: () => alert('Error al registrar usuario')
+      this.userService.create(payload).subscribe(() => {
+        this.closeUserModal();
+        this.loadUsers();
       });
     }
   }
 
-  cancelDelete() {
-    this.showDeleteDialog = false;
-    this.selectedUser = null;
+  get usuariosActivos() {
+    return this.users.filter(u => u.estado).length;
   }
 
-  confirmDelete() {
-    this.userService.delete(this.selectedUser.id).subscribe({
-      next: () => {
-        this.users = this.users.filter(u => u.id !== this.selectedUser.id);
-        this.filteredUsers = [...this.users];
-        this.cancelDelete();
-      }
-    });
+  get usuariosInactivos() {
+    return this.users.filter(u => !u.estado).length;
   }
 }

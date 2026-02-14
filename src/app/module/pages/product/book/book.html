@@ -4,13 +4,25 @@
   <app-stat-card
     title="Libros totales"
     [count]="books.length"
-    icon="people">
+    icon="menu_book">
   </app-stat-card>
 
   <app-stat-card
     title="Libros activos"
-    [count]="filteredBooks.length"
+    [count]="librosActivos"
     icon="check_circle">
+  </app-stat-card>
+
+  <app-stat-card
+    title="Sin stock"
+    [count]="librosSinStock"
+    icon="remove_circle">
+  </app-stat-card>
+
+  <app-stat-card
+    title="Stock total"
+    [count]="stockTotal"
+    icon="inventory">
   </app-stat-card>
 </div>
 
@@ -24,28 +36,28 @@
     label="Registrar libro"
     icon="add"
     color="primary"
-    (clickEvent)="onCreateBook()"
-    >
+    (clickEvent)="onCreateBook()">
   </app-button>
 </div>
 
 <div class="content">
-  @for(book of filteredBooks; track $index){
-    <app-book-card class="card"
+  @for(book of filteredBooks; track book.id){
+    <app-book-card
+      class="card"
       [book]="book"
       (edit)="onEditBook($event)"
-      (delete)="onAskDelete($event)">
+      (toggle)="onAskToggle($event)">
     </app-book-card>
   }
 </div>
 
-@if(showDeleteDialog){
+@if(showConfirmDialog){
   <app-dialog
-    title="Eliminar libro"
-    message="¿Deseas desactivar el libro?"
-    [itemName]="selectedBook?.name"
-    (confirm)="confirmDelete()"
-    (cancelDelete)="cancelDelete()">
+    [title]="dialogTitle"
+    [message]="dialogMessage"
+    [itemName]="selectedBook?.titulo"
+    (confirm)="confirmToggle()"
+    (cancelDelete)="cancelDialog()">
   </app-dialog>
 }
 
