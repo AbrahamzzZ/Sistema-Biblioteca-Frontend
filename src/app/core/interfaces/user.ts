@@ -7,3 +7,11 @@ export interface User{
     telefono: string;
     estado: boolean;
 }
+
+export interface CreateUserRequest {
+  nombreCompleto: string;
+  cedula: string;
+  correoElectronico: string;
+  direccion?: string;
+  telefono?: string;
+}
